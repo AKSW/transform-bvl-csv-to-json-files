@@ -30,6 +30,7 @@ foreach ($buildingArray as $key => $value) {
         ? 1 : 0;
 
     $buildingIndexArray[$id] = array(
+        'category' => $value[0],
         'title' => $value[1],
         'longitude' => (float)$long,
         'latitude' => (float)$lat,
