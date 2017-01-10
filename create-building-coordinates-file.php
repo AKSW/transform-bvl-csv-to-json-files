@@ -7,23 +7,29 @@ $buildingArray = loadCSVFileIntoArray('./source.csv');
 $buildingIndexArray = array();
 
 foreach ($buildingArray as $key => $value) {
+    if ('Kategorie' == $value[0]) continue;
+
     $long = $value[10];
     $lat = $value[11];
     $id = $value[12];
 
     //
-    $entranceSuitableForWheelchair = 'vollständig' == $value[2]
-        ? 2
-        : 'teilweise' == $value[2]
-            ? 1
-            : 0;
+    if ('vollständig' == $value[2]) {
+        $entranceSuitableForWheelchair = 2;
+    } elseif ('teilweise' == $value[2]) {
+        $entranceSuitableForWheelchair = 1;
+    } else {
+        $entranceSuitableForWheelchair = 0;
+    }
 
     //
-    $toiletSuitableForWheelchair = 'vollständig' == $value[5]
-        ? 2
-        : 'teilweise' == $value[5]
-            ? 1
-            : 0;
+    if ('vollständig' == $value[5]) {
+        $toiletSuitableForWheelchair = 2;
+    } elseif ('teilweise' == $value[5]) {
+        $toiletSuitableForWheelchair = 1;
+    } else {
+        $toiletSuitableForWheelchair = 0;
+    }
 
     //
     $parkingForDisabledPeople = 0 < (int)$value[15] || 0 < (int)$value[17]
@@ -37,6 +43,7 @@ foreach ($buildingArray as $key => $value) {
         'entrance-suit-f-wheelchair' => $entranceSuitableForWheelchair,
         'lift-suit-f-wheelchair' => 'ja' == $value[3] ? 1 : 0,
         'lift-avail' => 'ja' == $value[4] ? 1 : 0,
+        'toilet-avail' => 'ja' == $value[55] ? 1 : 0,
         'toilet-suit-f-wheelchair' => $toiletSuitableForWheelchair,
         'parking-avail' => 'ja' == $value[13] ? 1 : 0,
         'parking-f-disabled-avail' => $parkingForDisabledPeople,
