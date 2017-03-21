@@ -35,10 +35,7 @@ foreach ($buildingArray as $key => $value) {
     $parkingForDisabledPeople = 0 < (int)$value[15] || 0 < (int)$value[17]
         ? 1 : 0;
 
-    $parkingAvailable = $value[13] ? 1 : 0;
-    if (1 == $parkingForDisabledPeople) {
-        $parkingAvailable = 1;
-    }
+    $parkingAvailable = 'ja' == $value[13] ? 1 : 0;
 
     $buildingIndexArray[$id] = array(
         'category' => $value[0],
@@ -50,7 +47,7 @@ foreach ($buildingArray as $key => $value) {
         'lift-avail' => 'ja' == $value[4] ? 1 : 0,
         'toilet-avail' => 'ja' == $value[55] ? 1 : 0,
         'toilet-suit-f-wheelchair' => $toiletSuitableForWheelchair,
-        'parking-avail' => 'ja' == $parkingAvailable,
+        'parking-avail' => $parkingAvailable,
         'parking-f-disabled-avail' => $parkingForDisabledPeople,
         'help-for-hearing-imp' => 'ja' == $value[75] ? 1 : 0,
         'help-for-blind' => 'ja' == $value[76] ? 1 : 0,
